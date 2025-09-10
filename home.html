@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="icon" type="image/jpg" href="favicon2.png">
+    <link rel="icon" type="image/jpg" href="favicon2.png">
     <title>Brevity - Smart Study Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -355,12 +355,11 @@
             color: var(--text-secondary);
         }
 
-       /* Previous CSS code remains the same until the team section */
-
-        /* Enhanced Team Section */
+        /* Enhanced Team Section - Horizontal Scroll */
         .team-section {
-            padding: 60px 5%;
+            padding: 60px 0;
             text-align: center;
+            position: relative;
         }
 
         .team-title {
@@ -391,22 +390,36 @@
             margin-right: auto;
         }
 
-        .team-container {
+        .team-scroll-container {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .team-scroll-wrapper {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 30px 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .team-scroll-wrapper::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
         }
 
         .team-member-card {
             background: linear-gradient(145deg, var(--card-bg), var(--surface-color));
             border-radius: 15px;
             width: 280px;
+            min-width: 280px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: all 0.4s ease;
             position: relative;
+            margin: 0 15px;
+            flex-shrink: 0;
         }
 
         [data-theme="light"] .team-member-card {
@@ -418,72 +431,22 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
-        .team-img-container {
+        .avatar-container {
             position: relative;
-            height: 250px;
-            overflow: hidden;
-        }
-
-        .team-member-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .team-member-card:hover .team-member-img {
-            transform: scale(1.05);
-        }
-
-        .team-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, var(--primary-dark), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .team-member-card:hover .team-overlay {
-            opacity: 0.8;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .team-member-card:hover .social-links {
-            transform: translateY(0);
-        }
-
-        .social-links a {
-            width: 35px;
-            height: 35px;
+            height: 120px;
+            width: 120px;
+            margin: 30px auto 20px;
             border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.2);
+            font-size: 50px;
             color: white;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--accent);
-            transform: translateY(-3px);
         }
 
         .team-info {
-            padding: 25px 20px;
+            padding: 0 20px 25px;
             text-align: center;
         }
 
@@ -529,27 +492,32 @@
             background: rgba(138, 43, 226, 0.15);
         }
 
-        /* Responsive adjustments for team section */
-        @media (max-width: 768px) {
-            .team-container {
-                gap: 20px;
-            }
-            
-            .team-member-card {
-                width: 100%;
-                max-width: 320px;
-            }
+        .scroll-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
         }
 
-        @media (max-width: 576px) {
-            .team-title {
-                font-size: 28px;
-            }
-            
-            .team-img-container {
-                height: 220px;
-            }
+        .scroll-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
         }
+
+        .scroll-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
         /* Contact Section */
         .contact-container {
             display: flex;
@@ -588,6 +556,7 @@
         .contact-form {
             flex: 1;
             min-width: 300px;
+            position: relative;
         }
 
         .form-group {
@@ -622,6 +591,44 @@
         .form-group input:focus,
         .form-group textarea:focus {
             border-color: var(--primary);
+        }
+
+        /* Sent Animation Styles */
+        #sent-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        #sent-animation.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sent-animation-container {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            position: relative;
+        }
+
+        .sent-animation-container svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hidden {
+            visibility: hidden;
         }
 
         /* Footer */
@@ -713,7 +720,7 @@
         .footer-social-icons a {
             width: 35px;
             height: 35px;
-            borderRadius: 50%;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -868,6 +875,11 @@
                 text-align: center;
                 gap: 15px;
             }
+            
+            .team-member-card {
+                width: 250px;
+                min-width: 250px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -889,6 +901,11 @@
             
             .nav-right {
                 gap: 10px;
+            }
+            
+            .team-member-card {
+                width: 220px;
+                min-width: 220px;
             }
         }
         
@@ -1012,35 +1029,6 @@
         </div>
     </header>
 
-<body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="logo">
-            <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
-            <h1>Brevity</h1>
-        </div>
-
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#mission">Our Mission</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-            </ul>
-        </nav>
-
-        <div class="nav-right">
-            <div class="theme-toggle" id="theme-toggle">
-                <i class="fas fa-moon"></i>
-            </div>
-
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
-
     <!-- Home Section -->
     <section id="home">
         <div class="hero-content">
@@ -1109,7 +1097,7 @@
         </div>
     </section>
 
-     <section id="about">
+    <section id="about">
         <h2 class="section-title">About Us</h2>
         <div class="about-content">
             <div class="about-text">
@@ -1118,131 +1106,105 @@
             </div>
         </div>
         
-        <!-- Enhanced Team Section -->
+        <!-- Enhanced Team Section with Horizontal Scroll -->
         <div class="team-section">
             <h3 class="team-title">Our Creative Team</h3>
             <p class="team-subtitle">Meet the talented individuals behind Brevity who are passionate about revolutionizing education through technology.</p>
             
-            <div class="team-container">
-                <div class="team-member-card">
-                    <div class="team-img-container">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Demel Sathsara" class="team-member-img">
-                        <div class="team-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-github"></i></a>
+            <div class="team-scroll-container">
+                <div class="team-scroll-wrapper" id="teamScroll">
+                    <div class="team-member-card">
+                        <div class="avatar-container">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-member-name">Demel Sathsara</h3>
+                            <p class="team-member-role">Team Leader & Project Manager</p>
+                            <p class="team-member-desc">Oversees project development and coordinates team efforts to ensure timely delivery.</p>
+                            <div class="team-skills">
+                                <span class="skill-tag">Leadership</span>
+                                <span class="skill-tag">Planning</span>
+                                <span class="skill-tag">Strategy</span>
                             </div>
                         </div>
                     </div>
-                    <div class="team-info">
-                        <h3 class="team-member-name">Demel Sathsara</h3>
-                        <p class="team-member-role">Team Leader & Project Manager</p>
-                        <p class="team-member-desc">Oversees project development and coordinates team efforts to ensure timely delivery.</p>
-                        <div class="team-skills">
-                            <span class="skill-tag">Leadership</span>
-                            <span class="skill-tag">Planning</span>
-                            <span class="skill-tag">Strategy</span>
+                    
+                    <div class="team-member-card">
+                        <div class="avatar-container">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-member-name">Ravindu Ramesh</h3>
+                            <p class="team-member-role">Lead Developer</p>
+                            <p class="team-member-desc">Designs and implements the core functionality of the Brevity platform.</p>
+                            <div class="team-skills">
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">AI Integration</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member-card">
+                        <div class="avatar-container">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-member-name">Nirman Dewthilina</h3>
+                            <p class="team-member-role">UI/UX Designer</p>
+                            <p class="team-member-desc">Creates intuitive and visually appealing interfaces that enhance user experience.</p>
+                            <div class="team-skills">
+                                <span class="skill-tag">Figma</span>
+                                <span class="skill-tag">UI Design</span>
+                                <span class="skill-tag">UX Research</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member-card">
+                        <div class="avatar-container">
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-member-name">Oshada Champika</h3>
+                            <p class="team-member-role">Content Strategist</p>
+                            <p class="team-member-desc">Develops educational content and ensures the material is engaging and effective.</p>
+                            <div class="team-skills">
+                                <span class="skill-tag">Content Writing</span>
+                                <span class="skill-tag">Research</span>
+                                <span class="skill-tag">Education</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member-card">
+                        <div class="avatar-container">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="team-info">
+                            <h3 class="team-member-name">Mayon Dinsara</h3>
+                            <p class="team-member-role">Marketing Specialist</p>
+                            <p class="team-member-desc">Promotes Brevity and builds relationships with educational institutions and users.</p>
+                            <div class="team-skills">
+                                <span class="skill-tag">Digital Marketing</span>
+                                <span class="skill-tag">Outreach</span>
+                                <span class="skill-tag">Communication</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="team-member-card">
-                    <div class="team-img-container">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Ravindu Ramesh" class="team-member-img">
-                        <div class="team-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3 class="team-member-name">Ravindu Ramesh</h3>
-                        <p class="team-member-role">Lead Developer</p>
-                        <p class="team-member-desc">Designs and implements the core functionality of the Brevity platform.</p>
-                        <div class="team-skills">
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">AI Integration</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-member-card">
-                    <div class="team-img-container">
-                        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="Nirman Dewthilina" class="team-member-img">
-                        <div class="team-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-dribbble"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3 class="team-member-name">Nirman Dewthilina</h3>
-                        <p class="team-member-role">UI/UX Designer</p>
-                        <p class="team-member-desc">Creates intuitive and visually appealing interfaces that enhance user experience.</p>
-                        <div class="team-skills">
-                            <span class="skill-tag">Figma</span>
-                            <span class="skill-tag">UI Design</span>
-                            <span class="skill-tag">UX Research</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-member-card">
-                    <div class="team-img-container">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Oshada Champika" class="team-member-img">
-                        <div class="team-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-medium-m"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3 class="team-member-name">Oshada Champika</h3>
-                        <p class="team-member-role">Content Strategist</p>
-                        <p class="team-member-desc">Develops educational content and ensures the material is engaging and effective.</p>
-                        <div class="team-skills">
-                            <span class="skill-tag">Content Writing</span>
-                            <span class="skill-tag">Research</span>
-                            <span class="skill-tag">Education</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-member-card">
-                    <div class="team-img-container">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Mayon Dinsara" class="team-member-img">
-                        <div class="team-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h3 class="team-member-name">Mayon Dinsara</h3>
-                        <p class="team-member-role">Marketing Specialist</p>
-                        <p class="team-member-desc">Promotes Brevity and builds relationships with educational institutions and users.</p>
-                        <div class="team-skills">
-                            <span class="skill-tag">Digital Marketing</span>
-                            <span class="skill-tag">Outreach</span>
-                            <span class="skill-tag">Communication</span>
-                        </div>
-                    </div>
+                <div class="scroll-controls">
+                    <button class="scroll-btn" id="scrollLeft">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="scroll-btn" id="scrollRight">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- The rest of your HTML remains the same -->
 
     <!-- Contact Section -->
     <section id="contact">
@@ -1265,24 +1227,65 @@
             </div>
 
             <div class="contact-form">
-                <form>
+                <form id="contactForm">
                     <div class="form-group">
                         <label for="name">Your Name</label>
-                        <input type="text" id="name" placeholder="Enter your name">
+                        <input type="text" id="name" placeholder="Enter your name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Your Email</label>
-                        <input type="email" id="email" placeholder="Enter your email">
+                        <input type="email" id="email" placeholder="Enter your email" required>
                     </div>
                     <div class="form-group">
                         <label for="message">Your Message</label>
-                        <textarea id="message" rows="5" placeholder="Enter your message"></textarea>
+                        <textarea id="message" rows="5" placeholder="Enter your message" required></textarea>
                     </div>
-                    <button type="submit" class="cta-button">Send Message</button>
+                    <button type="submit" class="cta-button" id="sendButton">Send Message</button>
                 </form>
             </div>
         </div>
     </section>
+
+    <!-- Sent Animation Overlay -->
+    <div id="sent-animation">
+        <div class="sent-animation-container">
+            <svg viewBox="0 0 1400 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path id="paperPlaneRoute" d="M563.558,526.618 C638.854,410.19 787.84,243.065 916.53,334.949 1041.712,424.328 858.791,877.927 743.926,856.655 642.241,838.669 699.637,688.664 700,540" stroke="white"  stroke-width="3" style="stroke-dashoffset: 0.001px; stroke-dasharray: 0px, 999999px;"/>
+                <g id="rectSent" clip-path="url(#clipPath)">
+                    <g id="rectSentItems">
+                        <rect id="sentBase" x="460" y="468.5" width="480" height="143" rx="23" fill="white"/>
+                        <text id="txtSent" fill="#4F67ED" xml:space="preserve" style="white-space: pre" font-family="Roboto" font-size="82" font-weight="bold" letter-spacing="0.025em"><tspan x="637.487" y="568.027">Sent!</tspan></text>
+                    </g>
+                </g>
+                <g id="base">
+                    <g filter="url(#flShadow)"><rect id="btnBase" x="418.117" y="460.55" width="563.765" height="158.899" rx="27" fill="#F1F3FF" /></g>
+                    <text id="txtSend" fill="#291D89" xml:space="preserve" style="white-space: pre" font-family="Roboto" font-size="82" font-weight="bold" letter-spacing="0.06em"><tspan x="679.379" y="568.027">Send</tspan></text>
+                    <g id="paperPlane" style="transform-origin: 0px 0px 0px;" data-svg-origin="563.55859375 527.734375" transform="matrix(0.8396,0.5432,-0.5432,0.8396,377.09924,-222.6639)">
+                        <path id="paperPlanePath" d="M560.611 481.384C562.003 479.263 565.113 479.263 566.505 481.384L607.063 543.177C615.657 556.272 607.507 573.375 592.766 575.676L566.422 557.462V510.018C566.422 508.436 565.140 507.154 563.558 507.154C561.976 507.154 560.693 508.436 560.693 510.018V557.462L534.349 575.676C519.609 573.375 511.459 556.272 520.053 543.177L560.611 481.384Z" fill="#4F67EB"/>
+                    </g>
+                </g>
+                <circle id="cBottom" cx="700" cy="540" r="97.516" fill="#C23F3F"  class="hidden"/>
+                <circle id="cTop" cx="700" cy="502.365" r="107.898" fill="#C23F3F" class="hidden"/>
+                <circle id="cCenter" cx="700" cy="540" r="123" fill="#A74C4C" class="hidden" />
+                <circle id="cEnd" cx="495" cy="540" r="98" fill="#F1F3FF" class="hidden"/>
+                <path id="tickMark" fill-rule="evenodd" clip-rule="evenodd" d="M597.3 489.026C595.179 487.257 592.026 487.541 590.257 489.662L550.954 536.768L534.647 522.965C532.539 521.181 529.384 521.444 527.6 523.551L519.096 533.598C517.312 535.706 517.575 538.861 519.682 540.645L538.606 556.662C538.893 557.162 539.272 557.621 539.74 558.012L549.847 566.445C551.967 568.214 555.12 567.929 556.889 565.809L608.042 504.501C609.811 502.380 609.527 499.227 607.406 497.458L597.3 489.026Z" fill="#4E67E8" class="hidden"/>
+                <defs>
+                    <clipPath id="clipPath">
+                        <rect id="mask1" x="700" y="450" width="520" height="180" fill="white" id="clipRect"/>
+                    </clipPath>
+                    <filter id="flShadow" x="0" y="0" width="1000" height="1000" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                        <feOffset dx="4" dy="4"/>
+                        <feGaussianBlur stdDeviation="3.5"/>
+                        <feColorMatrix type="matrix" values="0 0 0 0 0.5125 0 0 0 0 0.420677 0 0 0 0 0.420677 0 0 0 0.25 0"/>
+                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1318,10 +1321,9 @@
         <div class="copyright">
             <p>&copy; 2025 Brevity by Master Minders. All rights reserved.</p>
             <div class="footer-social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61579124593222"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/brevity1.0/"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@brevity1.0"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
     </footer>
@@ -1347,14 +1349,22 @@
         </div>
     </div>
 
+    <!-- GSAP Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://assets.codepen.io/16327/MorphSVGPlugin3.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/MotionPathPlugin.min.js"></script>
+    <script src="https://assets.codepen.io/16327/DrawSVGPlugin3.min.js"></script>
 
     <script>
         // Check login status when page loads
         document.addEventListener('DOMContentLoaded', function() {
             checkLoginStatus();
             
-            // Your existing JavaScript code remains the same
-            // ...
+            // Initialize the sent animation
+            initSentAnimation();
+            
+            // Initialize team scroll functionality
+            initTeamScroll();
         });
         
         function checkLoginStatus() {
@@ -1407,6 +1417,139 @@
                 `;
             }
         }
+        
+        // Initialize the sent animation
+        function initSentAnimation() {
+            gsap.registerPlugin(MotionPathPlugin);
+            MorphSVGPlugin.convertToPath("circle, rect");
+            gsap.set("#paperPlaneRoute", { drawSVG: "0% 0%" });
+            gsap.set("#rectSentItems", { x: "-=240" });
+            
+            const contactForm = document.getElementById('contactForm');
+            const sentAnimation = document.getElementById('sent-animation');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show the animation
+                sentAnimation.classList.add('visible');
+                
+                // Play the animation
+                playSentAnimation();
+                
+                // Reset form after animation completes
+                setTimeout(() => {
+                    contactForm.reset();
+                }, 3000);
+            });
+        }
+        
+        // Play the sent animation
+        function playSentAnimation() {
+            const tl = gsap.timeline();
+            
+            tl.to("#base", { duration: 0.2, scale: 1, transformOrigin: "50% 50%" });
+            tl.to(
+                "#btnBase",
+                { duration: 0.77, morphSVG: "#cBottom", ease: "power1.inOut" },
+                "start"
+            );
+
+            tl.to("#btnBase", { duration: 0.23, morphSVG: "#cTop", ease: "power1.inOut" });
+            tl.to("#btnBase", {
+                duration: 0.2,
+                morphSVG: "#cCenter",
+                ease: "power1.inOut"
+            });
+            tl.to(
+                "#btnBase",
+                { duration: 0.5, morphSVG: "#cEnd", ease: "power1.inOut" },
+                "revealStart"
+            );
+            tl.to("#rectSentItems", { x: "0", duration: 0.5 }, "revealStart");
+            tl.to(
+                "#mask1",
+                { x: "-=260", duration: 0.5, ease: "power1.inOut" },
+                "revealStart"
+            );
+            tl.to(
+                "#paperPlane",
+                { x: "-=205", duration: 0.5, ease: "power1.inOut" },
+                "revealStart"
+            );
+            tl.to(
+                "#paperPlanePath",
+                { duration: 0.43, morphSVG: "#tickMark" },
+                "start+=0.77"
+            );
+
+            tl.to(
+                "#txtSend",
+                { duration: 0.6, scale: 0, transformOrigin: "50% 50%" },
+                "start"
+            );
+            tl.to(
+                "#paperPlaneRoute",
+                { drawSVG: "80% 100%", duration: 0.7, ease: "power1.inOut" },
+                "start+=0.3"
+            );
+            tl.to(
+                "#paperPlaneRoute",
+                { drawSVG: "100% 100%", duration: 0.2, ease: "power1.inOut" },
+                "start+=1"
+            );
+
+            tl.to(
+                "#paperPlane",
+                {
+                    duration: 1,
+                    ease: "power1.inOut",
+                    immediateRender: true,
+                    motionPath: {
+                        path: "#paperPlaneRoute",
+                        align: "#paperPlaneRoute",
+                        alignOrigin: [0.5, 0.5],
+                        autoRotate: 90
+                    }
+                },
+                "start"
+            );
+
+            tl.to(
+                "#paperPlanePath",
+                { duration: 0.15, attr: { fill: "#ffffff" } },
+                "start"
+            );
+            tl.to(
+                "#paperPlanePath",
+                { duration: 0.15, attr: { fill: "#4E67E8" } },
+                "start+=0.77"
+            );
+            
+            // Hide animation after completion
+            tl.to("#sent-animation", {
+                opacity: 0,
+                visibility: "hidden",
+                duration: 0.5,
+                delay: 1
+            });
+        }
+        
+        // Initialize team scroll functionality
+        function initTeamScroll() {
+            const teamScroll = document.getElementById('teamScroll');
+            const scrollLeft = document.getElementById('scrollLeft');
+            const scrollRight = document.getElementById('scrollRight');
+            
+            scrollLeft.addEventListener('click', () => {
+                teamScroll.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+            
+            scrollRight.addEventListener('click', () => {
+                teamScroll.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+        }
+        
         // Theme toggle functionality
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = themeToggle.querySelector('i');
