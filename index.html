@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brevity - Loading</title>
+    <link rel="icon" type="image/jpg" href="logo__2_-removebg-preview.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #111;
+        }
+        .loader{
+            position: relative;
+            cursor: default;
+            -webkit-box-reflect: below -25px linear-gradient(transparent, #0005);
+        }
+        .loader span{
+            position: relative;
+            display: inline-flex;
+            font-size: 3em;
+            color: transparent;
+            -webkit-text-stroke: 1px #7b28c9;
+            text-transform: uppercase;
+            font-weight: 800;
+            animation: animate 2s ease-in-out infinite;
+            animation-delay: calc(0.15s * var(--i));
+        }
+        @keyframes animate {
+            0%{
+                transform: translateY(0px);
+                color: transparent;
+                text-shadow: none;
+            
+            }
+            20%{
+                transform: translateY(-60px);
+                color: #9e53e4;
+                text-shadow: 0 0 5px #9f51e7,
+                0 0 25px #a973db,
+                0 0 50px #a973db;
+            }
+            40%,100%{
+                transform: translateY(0px);
+                color: transparent;
+                text-shadow: none;
+            }
+        }
+        
+        /* Transition animation */
+        .fade-out {
+            animation: fadeOut 0.5s ease forwards;
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <span style="--i:1;">L</span>
+        <span style="--i:2;">o</span>
+        <span style="--i:3;">a</span>
+        <span style="--i:4;">d</span>
+        <span style="--i:5;">i</span>
+        <span style="--i:6;">n</span>
+        <span style="--i:7;">g</span>
+        <span style="--i:8;">.</span>
+        <span style="--i:9;">.</span>
+        <span style="--i:10;">.</span>
+    </div>
+
+    <script>
+        // After 3 seconds, redirect to the login page
+        setTimeout(() => {
+            // Add fade-out effect
+            document.body.classList.add('fade-out');
+            
+            // Wait for the fade-out animation to complete
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 500); // Match this with the fade-out animation duration
+        }, 3000);
+    </script>
+</body>
+</html>
